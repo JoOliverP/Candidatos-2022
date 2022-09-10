@@ -34,10 +34,22 @@ export const HomeContainer = styled.main`
       font-weight: 700;
       color: ${(props) => props.theme['gray-900']};
       background: ${(props) => props.theme['yellow-500']};
+      transition: filter 0.2s;
+      &:hover {
+        filter: brightness(0.8);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
     }
 
     @media (max-width: 768px) {
       flex-direction: column;
     }
+  }
+  h1 {
+    text-align: center;
   }
 `

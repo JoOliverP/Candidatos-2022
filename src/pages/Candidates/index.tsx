@@ -5,6 +5,7 @@ import {
   Social,
   NumberCandidate,
   PaginateContainer,
+  GovernmentPlan,
 } from './styles'
 import profileImg from '../../assets/figurinha-cristiano-ronaldo.png'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
@@ -14,39 +15,17 @@ import ReactPaginate from 'react-paginate'
 import { PulseLoader } from 'react-spinners'
 
 export function Candidates() {
-  const { candidatesPresident, candidates, loading } =
-    useContext(CanditateContext)
+  const {
+    candidates,
+    type,
+    loading,
+    setPage,
+    pageCount,
+    handleLoadingMoreCandidates,
+  } = useContext(CanditateContext)
+
   return (
     <>
-      {/* <h1>Presidente</h1>
-      <CandidatesContainer>
-        {candidatesPresident?.map((candidates) => {
-          return (
-            <CardCandidate key={candidates.NR_CPF_CANDIDATO}>
-              <img src={candidates.IM_CANDIDATO} alt="" />
-
-              <h1>
-                {candidates.NM_URNA_CANDIDATO.split(' ').slice(0, 2).join(' ')}
-              </h1>
-              <NumberCandidate>
-                <h1></h1>
-              </NumberCandidate>
-              <Social>
-                <a href="">
-                  <FaFacebook size={25} />
-                </a>
-                <a href="">
-                  <FaInstagram size={25} />
-                </a>
-                <a href="">
-                  <FaTwitter size={25} />
-                </a>
-              </Social>
-            </CardCandidate>
-          )
-        })}
-      </CandidatesContainer> */}
-      <h1>Candidatos a governador</h1>
       <CandidatesContainer>
         {loading ? (
           <PulseLoader color="#36d7b7" />
@@ -66,14 +45,37 @@ export function Candidates() {
                   </h1>
                 </CandidateInfo>
 
+                {['1', '3'].includes(type) ? (
+                  <GovernmentPlan
+                    href={candidates.PT_CANDIDATO}
+                    target="__blank"
+                  >
+                    Plano de governo
+                  </GovernmentPlan>
+                ) : (
+                  <></>
+                )}
+
                 <Social>
-                  <a href={''}>
+                  <a
+                    href={candidates.RS_CANDIDATO?.facebook ?? ''}
+                    target={'_blank'}
+                    rel="noreferrer"
+                  >
                     <FaFacebook size={25} />
                   </a>
-                  <a href="">
+                  <a
+                    href={candidates.RS_CANDIDATO?.instagram ?? ''}
+                    target={'_blank'}
+                    rel="noreferrer"
+                  >
                     <FaInstagram size={25} />
                   </a>
-                  <a href="">
+                  <a
+                    href={candidates.RS_CANDIDATO?.twitter ?? ''}
+                    target={'_blank'}
+                    rel="noreferrer"
+                  >
                     <FaTwitter size={25} />
                   </a>
                 </Social>
@@ -82,23 +84,28 @@ export function Candidates() {
           })
         )}
       </CandidatesContainer>
-      <PaginateContainer>
-        <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
-          breakLabel="..."
-          breakClassName="break-me"
-          pageCount={18}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={2}
-          // onPageChange={(pagination) => {
-          //   // console.log(pagination)
-          //   setPage(pagination.selected + 1)
-          // }}
-          containerClassName="pagination"
-          activeClassName="active"
-        />
-      </PaginateContainer>
+      {!loading && ['6', '7', '8'].includes(type) ? (
+        <PaginateContainer>
+          <ReactPaginate
+            previousLabel="<"
+            nextLabel=">"
+            breakLabel="..."
+            breakClassName="break-me"
+            pageCount={pageCount}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={2}
+            onPageChange={(pagination) => {
+              console.log(pagination)
+              setPage(pagination.selected + 1)
+              handleLoadingMoreCandidates(pagination.selected + 1)
+            }}
+            containerClassName="pagination"
+            activeClassName="active"
+          />
+        </PaginateContainer>
+      ) : (
+        <></>
+      )}
     </>
   )
 }

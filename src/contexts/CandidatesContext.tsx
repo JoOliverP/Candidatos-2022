@@ -1,20 +1,23 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../services/api'
 
 interface CandidatesContextProviderProps {
   children: ReactNode
 }
 interface CandidatesSocialProps {
-  instagram: string
-  facebook: string
-  twitter: string
+  instagram: string | null
+  facebook: string | null
+  twitter: string | null
+  youtube: string | null
+  site: string | null
 }
 interface CandidatesData {
   NM_URNA_CANDIDATO: string
   IM_CANDIDATO: string
   NR_CPF_CANDIDATO: string
-  RS_CANDIDATO: CandidatesSocialProps
+  RS_CANDIDATO: CandidatesSocialProps | null
   NR_CANDIDATO: string
+  PT_CANDIDATO: string
 }
 interface StatesType {
   id: number
@@ -24,10 +27,13 @@ interface StatesType {
 
 interface CandidatesContextType {
   candidates: CandidatesData[]
-  candidatesPresident: CandidatesData[]
   states: StatesType[]
   loading: boolean
+  type: string
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  pageCount: number
   handleFilterCandidateType: (type: string, state: string) => void
+  handleLoadingMoreCandidates: (page: number) => void
 }
 
 export const CanditateContext = createContext({} as CandidatesContextType)
@@ -35,27 +41,28 @@ export const CanditateContext = createContext({} as CandidatesContextType)
 export function CandidatesContextProvider({
   children,
 }: CandidatesContextProviderProps) {
-  const [candidatesPresident, setCandidatesPresident] = useState<
-    CandidatesData[]
-  >([])
   const [candidates, setCandidates] = useState<CandidatesData[]>([])
   const [loading, setLoading] = useState(false)
 
-  const [states, setState] = useState<StatesType[]>([])
+  const [states, setStates] = useState<StatesType[]>([])
+  const [state, setState] = useState('DF')
+  const [type, setType] = useState('1')
+
+  const [pageCount, setPageCount] = useState(0)
+  const [page, setPage] = useState(1)
 
   async function loadCandidates() {
-    const response = await api.get(`PA`)
+    const response = await api.get(`${state}?cdc=${type}`)
 
-    setCandidates(response.data[3]) // pegaCandidatos
-    // setCandidatesPresident(response.data[1]) //pegaPresidente
+    setCandidates(response.data[type])
     setLoading(false)
-    console.log(response.data)
   }
+
   async function loadStates() {
     const response = await api.get(
       'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
     )
-    setState(response.data)
+    setStates(response.data)
     // console.log(states)
   }
 
@@ -67,21 +74,42 @@ export function CandidatesContextProvider({
   }, [])
 
   async function handleFilterCandidateType(type: string, state: string) {
-    console.log(type)
-    console.log(state)
-    // const response = await api.get(`PA?cdc=${type}`)
+    setLoading(true)
+    const response = await api.get(`${state}?cdc=${type}`)
+    if (['6', '7', '8'].includes(type)) {
+      setPageCount(response.data.pages[type].last)
+    }
+    setCandidates(response.data[type])
 
+    setType(type)
+    setState(state)
+
+    setLoading(false)
     // console.log(response.data[3])
+  }
+
+  async function handleLoadingMoreCandidates(page: number) {
+    setLoading(true)
+
+    const response = await api.get(`${state}?cdc=${type}&page=${page}`)
+
+    setCandidates(response.data[type])
+    setType(type)
+    setLoading(false)
+    console.log(response.data[3])
   }
 
   return (
     <CanditateContext.Provider
       value={{
         candidates,
-        candidatesPresident,
         loading,
+        type,
+        setPage,
+        pageCount,
         states,
         handleFilterCandidateType,
+        handleLoadingMoreCandidates,
       }}
     >
       {children}
