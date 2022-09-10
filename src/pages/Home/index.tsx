@@ -1,29 +1,55 @@
-import { Canditates } from '../Canditates'
+import { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import { CanditateContext } from '../../contexts/CandidatesContext'
+import { Candidates } from '../Candidates'
 import { HomeContainer } from './styles'
 
 export function Home() {
+  const { states, handleFilterCandidateType } = useContext(CanditateContext)
+  const [typeCandidate, setTypeCandidate] = useState('')
+  const [state, setState] = useState('')
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+    handleFilterCandidateType(typeCandidate, state)
+  }
   return (
     <HomeContainer>
-      <h1>Canditados</h1>
-
-      <form action="">
-        <select id="candidate_type" name="candidate_type">
-          <option value="">Tipo de canditatura</option>
-          <option value="president">Presidencia da republica</option>
-          <option value="gov">Governadores</option>
-          <option value="sen">Senadores</option>
-          <option value="dep_fed">Deputados federais</option>
-          <option value="dep_est">Deputados estaduais</option>
+      <form onSubmit={handleSubmit}>
+        <select
+          id="candidate_type"
+          name="candidate_type"
+          value={typeCandidate}
+          onChange={(event) => setTypeCandidate(event.target.value)}
+        >
+          <option defaultValue="typeCanditate" style={{ display: 'none' }}>
+            Tipo de canditatura
+          </option>
+          <option value="1">Presidencia da republica</option>
+          <option value="3">Governador</option>
+          <option value="5">Senador</option>
+          <option value="6">Deputado federal</option>
+          <option value="7">Deputado estadual</option>
         </select>
-        <select id="state" name="state">
-          <option value="">Estado</option>
-          <option value="">Pará</option>
-          <option value="">Brasilia</option>
-          <option value="">Rio grande do sul</option>
+        <select
+          id="state"
+          name="state"
+          value={state}
+          onChange={(event) => setState(event.target.value)}
+        >
+          <option defaultValue="state" style={{ display: 'none' }}>
+            Estado
+          </option>
+          {states?.map((state) => {
+            return (
+              <option key={state.id} value={state.sigla}>
+                {state.nome}
+              </option>
+            )
+          })}
         </select>
-        <input type="submit" value="Filtrar" />
+        <button type="submit">Filtrar</button>
       </form>
-      <Canditates />
+      <Candidates />
     </HomeContainer>
   )
 }

@@ -26,7 +26,7 @@ export const HomeContainer = styled.main`
         padding: 10px;
       }
     }
-    input {
+    button {
       padding: 10px;
       border: unset;
       border-radius: 5px;
@@ -34,6 +34,10 @@ export const HomeContainer = styled.main`
       font-weight: 700;
       color: ${(props) => props.theme['gray-900']};
       background: ${(props) => props.theme['yellow-500']};
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
     }
   }
 `
