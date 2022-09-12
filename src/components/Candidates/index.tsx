@@ -7,12 +7,13 @@ import {
   PaginateContainer,
   GovernmentPlan,
 } from './styles'
-import profileImg from '../../assets/figurinha-cristiano-ronaldo.png'
+
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { useContext } from 'react'
 import { CanditateContext } from '../../contexts/CandidatesContext'
-import ReactPaginate from 'react-paginate'
+
 import { PulseLoader } from 'react-spinners'
+import { Pagination } from '../Pagination'
 
 export function Candidates() {
   const {
@@ -28,7 +29,7 @@ export function Candidates() {
     <>
       <CandidatesContainer>
         {loading ? (
-          <PulseLoader color="#36d7b7" />
+          <PulseLoader color="#00B37E" />
         ) : (
           candidates?.map((candidates) => {
             return (
@@ -84,28 +85,7 @@ export function Candidates() {
           })
         )}
       </CandidatesContainer>
-      {!loading && ['6', '7', '8'].includes(type) ? (
-        <PaginateContainer>
-          <ReactPaginate
-            previousLabel="<"
-            nextLabel=">"
-            breakLabel="..."
-            breakClassName="break-me"
-            pageCount={pageCount}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={2}
-            onPageChange={(pagination) => {
-              console.log(pagination)
-              setPage(pagination.selected + 1)
-              handleLoadingMoreCandidates(pagination.selected + 1)
-            }}
-            containerClassName="pagination"
-            activeClassName="active"
-          />
-        </PaginateContainer>
-      ) : (
-        <></>
-      )}
+      {!loading && ['6', '7', '8'].includes(type) ? <Pagination /> : <></>}
     </>
   )
 }

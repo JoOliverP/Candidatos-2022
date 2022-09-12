@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { api } from '../services/api'
+import { StatesType, statesData } from '../services/states'
 
 interface CandidatesContextProviderProps {
   children: ReactNode
@@ -18,11 +19,6 @@ interface CandidatesData {
   RS_CANDIDATO: CandidatesSocialProps | null
   NR_CANDIDATO: string
   PT_CANDIDATO: string
-}
-interface StatesType {
-  id: number
-  sigla: string
-  nome: string
 }
 
 interface CandidatesContextType {
@@ -59,23 +55,14 @@ export function CandidatesContextProvider({
   }
 
   async function loadStates() {
-    const response = await api.get(
-      'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
-    )
-    setStates(response.data)
-    // console.log(states)
+    const response = await statesData
+    setStates(response)
   }
-
-  useEffect(() => {
-    setLoading(true)
-    loadCandidates()
-    loadStates()
-    // console.log(candidates)
-  }, [])
 
   async function handleFilterCandidateType(type: string, state: string) {
     setLoading(true)
     const response = await api.get(`${state}?cdc=${type}`)
+
     if (['6', '7', '8'].includes(type)) {
       setPageCount(response.data.pages[type].last)
     }
@@ -96,8 +83,14 @@ export function CandidatesContextProvider({
     setCandidates(response.data[type])
     setType(type)
     setLoading(false)
-    console.log(response.data[3])
   }
+
+  useEffect(() => {
+    setLoading(true)
+    loadCandidates()
+    loadStates()
+    // console.log(candidates)
+  }, [])
 
   return (
     <CanditateContext.Provider

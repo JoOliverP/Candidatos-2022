@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useState } from 'react'
 import { CanditateContext } from '../../contexts/CandidatesContext'
-import { Candidates } from '../Candidates'
+import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
 
 export function Home() {
@@ -24,7 +24,7 @@ export function Home() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
     handleFilterCandidateType(typeCandidate, state)
-    setTypeCandidateSelected(typeCandidate)
+    // setTypeCandidateSelected(typeCandidate)
   }
   return (
     <HomeContainer>
@@ -57,8 +57,8 @@ export function Home() {
 
           {states?.map((state) => {
             return (
-              <option key={state.id} value={state.sigla}>
-                {state.nome}
+              <option key={state.id} value={state.uf}>
+                {state.name}
               </option>
             )
           })}
@@ -68,10 +68,18 @@ export function Home() {
         </button>
       </form>
 
-      <h1>{`Candidatos a ${
-        candidateTypes[typeCandidateSelected as ObjectKey]
-      } `}</h1>
-      <Candidates />
+      {typeCandidateSelected === '8' && state !== 'DF' ? (
+        <h1>
+          No Distrito Federal existem apenas Deputados distritais e federais
+        </h1>
+      ) : (
+        <>
+          <h1>
+            Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]}
+          </h1>
+          <Candidates />
+        </>
+      )}
     </HomeContainer>
   )
 }

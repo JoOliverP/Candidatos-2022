@@ -1,0 +1,31 @@
+import { useContext } from 'react'
+import ReactPaginate from 'react-paginate'
+import { CanditateContext } from '../../contexts/CandidatesContext'
+import { PaginateContainer } from './styles'
+
+export function Pagination() {
+  const { type, setPage, pageCount, handleLoadingMoreCandidates } =
+    useContext(CanditateContext)
+  return (
+    <>
+      <PaginateContainer>
+        <ReactPaginate
+          previousLabel="<"
+          nextLabel=">"
+          breakLabel="..."
+          breakClassName="break-me"
+          pageCount={pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={(pagination) => {
+            console.log(pagination)
+            setPage(pagination.selected + 1)
+            handleLoadingMoreCandidates(pagination.selected + 1)
+          }}
+          containerClassName="pagination"
+          activeClassName="active"
+        />
+      </PaginateContainer>
+    </>
+  )
+}
