@@ -39,6 +39,7 @@ export const NumberCandidate = styled.div`
 export const CandidateInfo = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme['yellow-500']};
@@ -48,12 +49,24 @@ export const CandidateInfo = styled.div`
     font-size: 16px;
     color: ${(props) => props.theme['gray-900']};
   }
+  span {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 25px;
+    bottom: 146px;
+    background: ${(props) => props.theme['green-500']};
+    /* left: 10px; */
+    /* border-radius: 999px; */
+    padding: 2px;
+    font-size: 14px;
+  }
 `
 
 export const GovernmentPlan = styled.a`
   width: 100%;
   padding: 5px;
-  margin: 15px 0 5px 0;
+  margin: 10px 0 5px 0;
 
   text-align: center;
   text-decoration: none;

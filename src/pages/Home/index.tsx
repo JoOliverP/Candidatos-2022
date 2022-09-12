@@ -19,6 +19,7 @@ export function Home() {
     '7': 'Deputado Estadual',
     '8': 'Deputado Distrital',
   }
+
   type ObjectKey = keyof typeof candidateTypes
 
   function handleSubmit(event: FormEvent) {
@@ -63,6 +64,7 @@ export function Home() {
             )
           })}
         </select>
+
         <button disabled={state === '' || typeCandidate === '0'} type="submit">
           Filtrar
         </button>

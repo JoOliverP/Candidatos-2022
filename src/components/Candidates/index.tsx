@@ -57,6 +57,7 @@ export function Candidates() {
                       .slice(0, 2)
                       .join(' ')}
                   </h1>
+                  <span>{candidates?.SG_PARTIDO}</span>
                 </CandidateInfo>
 
                 {['1', '3'].includes(type) ? (
