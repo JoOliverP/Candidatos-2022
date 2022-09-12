@@ -24,7 +24,7 @@ export function Home() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
     handleFilterCandidateType(typeCandidate, state)
-    // setTypeCandidateSelected(typeCandidate)
+    setTypeCandidateSelected(typeCandidate)
   }
   return (
     <HomeContainer>
@@ -68,18 +68,8 @@ export function Home() {
         </button>
       </form>
 
-      {typeCandidateSelected === '8' && state !== 'DF' ? (
-        <h1>
-          No Distrito Federal existem apenas Deputados distritais e federais
-        </h1>
-      ) : (
-        <>
-          <h1>
-            Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]}
-          </h1>
-          <Candidates />
-        </>
-      )}
+      <h1>Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]}</h1>
+      <Candidates />
     </HomeContainer>
   )
 }

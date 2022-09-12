@@ -4,7 +4,7 @@ import { CanditateContext } from '../../contexts/CandidatesContext'
 import { PaginateContainer } from './styles'
 
 export function Pagination() {
-  const { type, setPage, pageCount, handleLoadingMoreCandidates } =
+  const { type, page, setPage, pageCount, handleLoadingMoreCandidates } =
     useContext(CanditateContext)
   return (
     <>
@@ -15,8 +15,9 @@ export function Pagination() {
           breakLabel="..."
           breakClassName="break-me"
           pageCount={pageCount}
+          forcePage={page - 1}
           marginPagesDisplayed={1}
-          pageRangeDisplayed={3}
+          pageRangeDisplayed={2}
           onPageChange={(pagination) => {
             console.log(pagination)
             setPage(pagination.selected + 1)

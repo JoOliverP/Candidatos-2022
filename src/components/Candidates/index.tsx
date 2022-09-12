@@ -1,35 +1,43 @@
+import { useState, useContext } from 'react'
 import {
   CandidatesContainer,
   CardCandidate,
   CandidateInfo,
   Social,
   NumberCandidate,
-  PaginateContainer,
   GovernmentPlan,
 } from './styles'
 
+import noImage from '../../assets/no-image.jpg'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
-import { useContext } from 'react'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 
 import { PulseLoader } from 'react-spinners'
 import { Pagination } from '../Pagination'
 
 export function Candidates() {
+  const [hasError, setHasError] = useState(false)
   const {
     candidates,
     type,
     loading,
+    page,
     setPage,
     pageCount,
     handleLoadingMoreCandidates,
   } = useContext(CanditateContext)
 
+  function imageError(e: any) {
+    console.log(e)
+    setHasError(true)
+  }
   return (
     <>
       <CandidatesContainer>
         {loading ? (
-          <PulseLoader color="#00B37E" />
+          <PulseLoader color="#36d7b7" />
+        ) : !candidates.length ? (
+          <h1>Dados não encontrados</h1>
         ) : (
           candidates?.map((candidates) => {
             return (
@@ -37,7 +45,12 @@ export function Candidates() {
                 <NumberCandidate>
                   <h1>{candidates?.NR_CANDIDATO}</h1>
                 </NumberCandidate>
-                <img src={candidates?.IM_CANDIDATO} alt="" />
+
+                <img
+                  src={hasError ? noImage : candidates?.IM_CANDIDATO}
+                  onError={imageError}
+                  alt=""
+                />
                 <CandidateInfo>
                   <h1>
                     {candidates?.NM_URNA_CANDIDATO.split(' ')
@@ -85,7 +98,12 @@ export function Candidates() {
           })
         )}
       </CandidatesContainer>
-      {!loading && ['6', '7', '8'].includes(type) ? <Pagination /> : <></>}
+
+      {!loading && candidates.length && ['6', '7', '8'].includes(type) ? (
+        <Pagination />
+      ) : (
+        <></>
+      )}
     </>
   )
 }
