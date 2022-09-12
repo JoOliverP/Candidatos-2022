@@ -1,4 +1,7 @@
 import { FormEvent, useContext, useState } from 'react'
+// import Select from 'react-select'
+// import Select from 'react-tailwindcss-select'
+// import 'react-tailwindcss-select/dist/index.css'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
@@ -26,9 +29,28 @@ export function Home() {
     handleFilterCandidateType(typeCandidate, state)
     setTypeCandidateSelected(typeCandidate)
   }
+
+  const options = [
+    { value: '1', label: 'Presidência da República' },
+    { value: '3', label: 'Governador' },
+    { value: '5', label: 'Senador' },
+    { value: '6', label: 'Deputado Federal' },
+    { value: '7', label: 'Deputado Estadual' },
+    { value: '8', label: 'Deputado Distrital' },
+  ]
+
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit}>
+        {/* <Select 
+          // id="candidate_type"
+          // name="candidate_type"
+          placeholder="Tipo de canditatura"
+          options={options}
+          // styles={{
+          //   width: 500,
+          // }}
+        /> */}
         <select
           id="candidate_type"
           name="candidate_type"

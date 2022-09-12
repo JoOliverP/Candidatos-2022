@@ -532,23 +532,23 @@ export const statesData: StatesType[] = [
       },
     },
   },
-  {
-    id: 28,
-    name: 'Brasil',
-    uf: 'BR',
-    img: {
-      circle: {
-        png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/circle/png-200/BR.png',
-        svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/circle/svg/BR.svg',
-      },
-      rounded: {
-        png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/rounded/png-200/BR.png',
-        svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/rounded/svg/BR.svg',
-      },
-      square_rounded: {
-        png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/square-rounded/png-200/BR.png',
-        svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/square-rounded/svg/BR.svg',
-      },
-    },
-  },
+  // {
+  //   id: 28,
+  //   name: 'Brasil',
+  //   uf: 'BR',
+  //   img: {
+  //     circle: {
+  //       png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/circle/png-200/BR.png',
+  //       svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/circle/svg/BR.svg',
+  //     },
+  //     rounded: {
+  //       png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/rounded/png-200/BR.png',
+  //       svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/rounded/svg/BR.svg',
+  //     },
+  //     square_rounded: {
+  //       png: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/square-rounded/png-200/BR.png',
+  //       svg: 'https://raw.githubusercontent.com/alexsilva96dev/eleicoes-2022-data/main/imgs/ufs/square-rounded/svg/BR.svg',
+  //     },
+  //   },
+  // },
 ]

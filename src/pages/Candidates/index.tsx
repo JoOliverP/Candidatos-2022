@@ -1,23 +1,20 @@
-import { useState, useContext } from 'react'
-import {
-  CandidatesContainer,
-  CardCandidate,
-  CandidateInfo,
-  Social,
-  NumberCandidate,
-  GovernmentPlan,
-} from './styles'
-
-// import noImage from '../../assets/no-image.jpg'
+// import {
+//   CandidatesContainer,
+//   CardCandidate,
+//   CandidateInfo,
+//   Social,
+//   NumberCandidate,
+//   PaginateContainer,
+//   GovernmentPlan,
+// } from './styles'
+import profileImg from '../../assets/figurinha-cristiano-ronaldo.png'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { useContext } from 'react'
 import { CanditateContext } from '../../contexts/CandidatesContext'
-
+import ReactPaginate from 'react-paginate'
 import { PulseLoader } from 'react-spinners'
-import { Image } from '../Image'
-import { Pagination } from '../Pagination'
 
 export function Candidates() {
-  // const [hasError, setHasError] = useState(false)
   const {
     candidates,
     type,
@@ -28,18 +25,13 @@ export function Candidates() {
     handleLoadingMoreCandidates,
   } = useContext(CanditateContext)
 
-  // function imageError(e: any) {
-  //   console.log(e)
-  //   setHasError(true)
-  // }
-
   return (
     <>
       <CandidatesContainer>
         {loading ? (
           <PulseLoader color="#36d7b7" />
         ) : !candidates.length ? (
-          <h1>Dados não encontrados</h1>
+          <h1>Mensagem caso não tenha dados no array</h1>
         ) : (
           candidates?.map((candidates) => {
             return (
@@ -47,10 +39,7 @@ export function Candidates() {
                 <NumberCandidate>
                   <h1>{candidates?.NR_CANDIDATO}</h1>
                 </NumberCandidate>
-
-                <Image
-                  src={candidates?.IM_CANDIDATO}
-                />
+                <img src={candidates?.IM_CANDIDATO} alt="" />
                 <CandidateInfo>
                   <h1>
                     {candidates?.NM_URNA_CANDIDATO.split(' ')
@@ -100,7 +89,25 @@ export function Candidates() {
       </CandidatesContainer>
 
       {!loading && candidates.length && ['6', '7', '8'].includes(type) ? (
-        <Pagination />
+        <PaginateContainer>
+          <ReactPaginate
+            previousLabel="<"
+            nextLabel=">"
+            breakLabel="..."
+            breakClassName="break-me"
+            pageCount={pageCount}
+            forcePage={page - 1}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={2}
+            onPageChange={(pagination) => {
+              console.log(pagination)
+              setPage(pagination.selected + 1)
+              handleLoadingMoreCandidates(pagination.selected + 1)
+            }}
+            containerClassName="pagination"
+            activeClassName="active"
+          />
+        </PaginateContainer>
       ) : (
         <></>
       )}
