@@ -19,6 +19,7 @@ export function Candidates() {
     candidates,
     type,
     loading,
+    page,
     setPage,
     pageCount,
     handleLoadingMoreCandidates,
@@ -29,6 +30,8 @@ export function Candidates() {
       <CandidatesContainer>
         {loading ? (
           <PulseLoader color="#36d7b7" />
+        ) : !candidates.length ? (
+          <h1>Mensagem caso não tenha dados no array</h1>
         ) : (
           candidates?.map((candidates) => {
             return (
@@ -84,7 +87,8 @@ export function Candidates() {
           })
         )}
       </CandidatesContainer>
-      {!loading && ['6', '7', '8'].includes(type) ? (
+
+      {!loading && candidates.length && ['6', '7', '8'].includes(type) ? (
         <PaginateContainer>
           <ReactPaginate
             previousLabel="<"
@@ -92,6 +96,7 @@ export function Candidates() {
             breakLabel="..."
             breakClassName="break-me"
             pageCount={pageCount}
+            forcePage={page - 1}
             marginPagesDisplayed={1}
             pageRangeDisplayed={2}
             onPageChange={(pagination) => {

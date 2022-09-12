@@ -31,6 +31,7 @@ interface CandidatesContextType {
   loading: boolean
   type: string
   setPage: React.Dispatch<React.SetStateAction<number>>
+  page: number
   pageCount: number
   handleFilterCandidateType: (type: string, state: string) => void
   handleLoadingMoreCandidates: (page: number) => void
@@ -75,14 +76,36 @@ export function CandidatesContextProvider({
 
   async function handleFilterCandidateType(type: string, state: string) {
     setLoading(true)
-    const response = await api.get(`${state}?cdc=${type}`)
-    if (['6', '7', '8'].includes(type)) {
-      setPageCount(response.data.pages[type].last)
-    }
-    setCandidates(response.data[type])
 
-    setType(type)
-    setState(state)
+    try {
+      const response = await api.get(`${state}?cdc=${type}&page=${1}`)
+
+      if (['6', '7', '8'].includes(type)) {
+        if (response.data.pages[type]) {
+          setPageCount(response.data.pages[type].last)
+        } else {
+          setPageCount(0)
+        }
+      }
+
+      setPage(1)
+
+      if (response.data[type]) {
+        setCandidates(response.data[type])
+      } else {
+        setCandidates([])
+      }
+      
+      setType(type)
+      setState(state)
+    } catch (error) {
+      // setPage(1)
+
+      setCandidates([])
+
+      // setType(type)
+      // setState(state)
+    }
 
     setLoading(false)
     // console.log(response.data[3])
@@ -105,6 +128,7 @@ export function CandidatesContextProvider({
         candidates,
         loading,
         type,
+        page,
         setPage,
         pageCount,
         states,
