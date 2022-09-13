@@ -10,6 +10,7 @@
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
