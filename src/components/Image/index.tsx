@@ -10,11 +10,5 @@ export function Image({ src }: any) {
     setHasError(true)
   }
 
-  return (
-    <img
-      src={hasError ? noImage : src}
-      onError={imageError}
-      alt=""
-    />
-  )
+  return <img src={hasError ? noImage : src} onError={imageError} alt="" />
 }

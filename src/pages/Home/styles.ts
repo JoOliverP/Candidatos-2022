@@ -48,7 +48,7 @@ export const HomeContainer = styled.main`
             align-items: center;
 
             img {
-              width: 7%;
+              width: 8%;
               margin-right: 6px;
             }
           }
@@ -103,7 +103,7 @@ export const HomeContainer = styled.main`
               align-items: center;
   
               img {
-                width: 7%;
+                width: 8%;
                 margin-right: 6px;
               }
             }

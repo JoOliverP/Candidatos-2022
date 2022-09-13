@@ -48,15 +48,14 @@ export function Candidates() {
                   <h1>{candidates?.NR_CANDIDATO}</h1>
                 </NumberCandidate>
 
-                <Image
-                  src={candidates?.IM_CANDIDATO}
-                />
+                <Image src={candidates?.IM_CANDIDATO} />
                 <CandidateInfo>
                   <h1>
                     {candidates?.NM_URNA_CANDIDATO.split(' ')
                       .slice(0, 2)
                       .join(' ')}
                   </h1>
+                  <span>{candidates?.SG_PARTIDO}</span>
                 </CandidateInfo>
 
                 {['1', '3'].includes(type) ? (

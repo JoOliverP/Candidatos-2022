@@ -1,7 +1,5 @@
 import { FormEvent, useContext, useState } from 'react'
 import Select from 'react-select'
-// import Select from 'react-tailwindcss-select'
-// import 'react-tailwindcss-select/dist/index.css'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
@@ -9,7 +7,6 @@ import { HomeContainer } from './styles'
 export function Home() {
   const { states, handleFilterCandidateType } = useContext(CanditateContext)
   const [typeCandidate, setTypeCandidate] = useState('0')
-  // const [typeCandidate, setTypeCandidate] = useState('0')
   const [typeCandidateSelected, setTypeCandidateSelected] = useState('0')
 
   const [state, setState] = useState('')
@@ -23,6 +20,7 @@ export function Home() {
     '7': 'Deputado Estadual',
     '8': 'Deputado Distrital',
   }
+
   type ObjectKey = keyof typeof candidateTypes
 
   function handleSubmit(event: FormEvent) {
@@ -103,7 +101,7 @@ export function Home() {
           options={stateOptions}
           onChange={(data: any) => {
             setState(data.value)
-            console.log(data)
+            // console.log(data)
           }}
           className="select"
           classNamePrefix="option"

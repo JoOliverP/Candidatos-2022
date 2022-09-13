@@ -19,6 +19,7 @@ interface CandidatesData {
   RS_CANDIDATO: CandidatesSocialProps | null
   NR_CANDIDATO: string
   PT_CANDIDATO: string
+  SG_PARTIDO: string
 }
 
 interface CandidatesContextType {
