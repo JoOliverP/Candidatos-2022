@@ -93,16 +93,10 @@ export function CandidatesContextProvider({
       setType(type)
       setState(state)
     } catch (error) {
-      // setPage(1)
-
       setCandidates([])
-
-      // setType(type)
-      // setState(state)
     }
 
     setLoading(false)
-    // console.log(response.data[3])
   }
 
   async function handleLoadingMoreCandidates(page: number) {
