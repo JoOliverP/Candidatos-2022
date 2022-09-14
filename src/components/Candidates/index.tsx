@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import {
   CandidatesContainer,
   CardCandidate,
@@ -8,7 +8,6 @@ import {
   GovernmentPlan,
 } from './styles'
 
-// import noImage from '../../assets/no-image.jpg'
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 
@@ -17,7 +16,6 @@ import { Image } from '../Image'
 import { Pagination } from '../Pagination'
 
 export function Candidates() {
-  // const [hasError, setHasError] = useState(false)
   const {
     candidates,
     type,
@@ -28,16 +26,11 @@ export function Candidates() {
     handleLoadingMoreCandidates,
   } = useContext(CanditateContext)
 
-  // function imageError(e: any) {
-  //   console.log(e)
-  //   setHasError(true)
-  // }
-
   return (
     <>
       <CandidatesContainer>
         {loading ? (
-          <PulseLoader color="#36d7b7" />
+          <PulseLoader color="#00B37E" />
         ) : !candidates.length ? (
           <h1>Dados não encontrados</h1>
         ) : (
@@ -48,8 +41,8 @@ export function Candidates() {
                   <h1>{candidates?.NR_CANDIDATO}</h1>
                 </NumberCandidate>
 
-                <Image src={candidates?.IM_CANDIDATO} />
                 <CandidateInfo>
+                  <Image src={candidates?.IM_CANDIDATO} />
                   <h1>
                     {candidates?.NM_URNA_CANDIDATO.split(' ')
                       .slice(0, 2)
@@ -70,22 +63,29 @@ export function Candidates() {
                 )}
 
                 <Social>
+                  {/* <Link to="/social-not-found"></Link> */}
                   <a
-                    href={candidates.RS_CANDIDATO?.facebook ?? ''}
+                    href={
+                      candidates.RS_CANDIDATO?.facebook ?? '/social-not-found'
+                    }
                     target={'_blank'}
                     rel="noreferrer"
                   >
                     <FaFacebook size={25} />
                   </a>
                   <a
-                    href={candidates.RS_CANDIDATO?.instagram ?? ''}
+                    href={
+                      candidates.RS_CANDIDATO?.instagram ?? '/social-not-found'
+                    }
                     target={'_blank'}
                     rel="noreferrer"
                   >
                     <FaInstagram size={25} />
                   </a>
                   <a
-                    href={candidates.RS_CANDIDATO?.twitter ?? ''}
+                    href={
+                      candidates.RS_CANDIDATO?.twitter ?? '/social-not-found'
+                    }
                     target={'_blank'}
                     rel="noreferrer"
                   >

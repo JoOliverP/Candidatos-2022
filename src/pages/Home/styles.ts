@@ -17,34 +17,16 @@ export const HomeContainer = styled.main`
       width: 250px;
       font-weight: bold;
       background: ${(props) => props.theme['gray-600']};
-      
-      // padding: 10px;
-      // font-size: 16px;
-      // color: ${(props) => props.theme['white-100']};
-      // border-radius: 5px;
-      // border: unset;
-
-      // &:focus, &:hover {
-      //   outline: 0;
-      //   box-shadow: 0 0 0 2px ${(props) => props.theme['green-500']};
-      // }
 
       .option__control {
-        // color: ${(props) => props.theme['white-100']};
         background: ${(props) => props.theme['gray-600']};
 
-        // &:focus, &:hover {
-        //   outline: 0;
-        //   box-shadow: 0 0 0 1px ${(props) => props.theme['green-500']};
-        //   border-color: ${(props) => props.theme['green-500']};
-        // }
-
-        .option__value-container .option__placeholder, .option__value-container .option__single-value {
+        .option__value-container .option__placeholder,
+        .option__value-container .option__single-value {
           color: ${(props) => props.theme['white-100']};
 
           .option__state {
             display: flex;
-            // justify-content: center;
             align-items: center;
 
             img {
@@ -55,10 +37,8 @@ export const HomeContainer = styled.main`
         }
 
         .option__indicators .option__indicator {
-          // color: hsl(0, 0%, 80%)
-
           &:hover {
-            color: hsl(0, 0%, 40%)
+            color: hsl(0, 0%, 40%);
           }
         }
       }
@@ -66,15 +46,10 @@ export const HomeContainer = styled.main`
       .option__control--is-focused {
         outline: 0;
         box-shadow: none;
-        // border-color: ${(props) => props.theme['green-500']};
         border-color: unset;
 
         .option__indicators .option__indicator {
-          color: hsl(0, 0%, 80%)
-
-          // &:hover {
-          //   color: hsl(0, 0%, 40%)
-          // }
+          color: hsl(0, 0%, 80%);
         }
       }
 
@@ -84,7 +59,7 @@ export const HomeContainer = styled.main`
         border-color: ${(props) => props.theme['green-500']};
 
         .option__indicators .option__indicator {
-          color: hsl(0, 0%, 40%)
+          color: hsl(0, 0%, 40%);
         }
       }
 
@@ -101,7 +76,7 @@ export const HomeContainer = styled.main`
               display: flex;
               // justify-content: center;
               align-items: center;
-  
+
               img {
                 width: 8%;
                 margin-right: 6px;
@@ -123,10 +98,6 @@ export const HomeContainer = styled.main`
           }
         }
       }
-
-      // option {
-      //   padding: 10px;
-      // }
     }
 
     select {

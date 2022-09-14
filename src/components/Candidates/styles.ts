@@ -5,7 +5,7 @@ export const CandidatesContainer = styled.section`
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 `
 export const CardCandidate = styled.div`
   position: relative;
@@ -17,10 +17,6 @@ export const CardCandidate = styled.div`
   border-radius: 8px;
   /* width: 9.375rem; */
   /* height: 18.75rem; */
-  img {
-    width: 200px;
-    height: 250px;
-  }
 `
 export const NumberCandidate = styled.div`
   position: absolute;
@@ -44,22 +40,24 @@ export const CandidateInfo = styled.div`
   align-items: center;
   background: ${(props) => props.theme['yellow-500']};
 
+  img {
+    width: 200px;
+    height: 250px;
+  }
+
   h1 {
     margin: 10px 0 10px 0;
     font-size: 16px;
     color: ${(props) => props.theme['gray-900']};
   }
   span {
-    // width: 60%;
     position: absolute;
-    display: flex;
-    align-items: center;
     right: 25px;
-    bottom: 146px;
+    top: 251px;
     background: ${(props) => props.theme['green-500']};
     /* left: 10px; */
     /* border-radius: 999px; */
-    padding: 6px;
+    padding: 4px;
     font-size: 14px;
     font-weight: 500;
   }
