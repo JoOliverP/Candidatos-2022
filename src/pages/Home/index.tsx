@@ -5,7 +5,7 @@ import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
 
 export function Home() {
-  const { states, handleFilterCandidateType } = useContext(CanditateContext)
+  const { states, vagas, handleFilterCandidateType } = useContext(CanditateContext)
   const [typeCandidate, setTypeCandidate] = useState('0')
   const [typeCandidateSelected, setTypeCandidateSelected] = useState('0')
 
@@ -138,7 +138,7 @@ export function Home() {
         </button>
       </form>
 
-      <h1>Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]}</h1>
+      <h1>Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]} ({vagas} {vagas == 1 ? "vaga" : "vagas"})</h1>
       <Candidates />
     </HomeContainer>
   )

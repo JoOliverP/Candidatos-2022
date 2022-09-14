@@ -27,6 +27,7 @@ interface CandidatesContextType {
   states: StatesType[]
   loading: boolean
   type: string
+  vagas: number
   setPage: React.Dispatch<React.SetStateAction<number>>
   page: number
   pageCount: number
@@ -45,6 +46,7 @@ export function CandidatesContextProvider({
   const [states, setStates] = useState<StatesType[]>([])
   const [state, setState] = useState('DF')
   const [type, setType] = useState('1')
+  const [vagas, setVagas] = useState(0)
 
   const [pageCount, setPageCount] = useState(0)
   const [page, setPage] = useState(1)
@@ -53,6 +55,7 @@ export function CandidatesContextProvider({
     const response = await api.get(`${state}?cdc=${type}`)
 
     setCandidates(response.data[type])
+    setVagas(response.data.vagas[type])
     setLoading(false)
   }
 
@@ -65,6 +68,8 @@ export function CandidatesContextProvider({
     setLoading(true)
 
     try {
+      setVagas(0)
+      
       const response = await api.get(`${state}?cdc=${type}&page=${1}`)
 
       if (['6', '7', '8'].includes(type)) {
@@ -79,8 +84,10 @@ export function CandidatesContextProvider({
 
       if (response.data[type]) {
         setCandidates(response.data[type])
+        setVagas(response.data.vagas[type])
       } else {
         setCandidates([])
+        // setVagas(0)
       }
 
       setType(type)
@@ -105,6 +112,7 @@ export function CandidatesContextProvider({
 
     setCandidates(response.data[type])
     setType(type)
+    setVagas(response.data.vagas[type])
     setLoading(false)
   }
 
@@ -121,6 +129,7 @@ export function CandidatesContextProvider({
         candidates,
         loading,
         type,
+        vagas,
         page,
         setPage,
         pageCount,
