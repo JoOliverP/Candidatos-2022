@@ -57,7 +57,7 @@ export const CandidateInfo = styled.div`
     background: ${(props) => props.theme['green-500']};
     /* left: 10px; */
     /* border-radius: 999px; */
-    padding: 4px;
+    padding: 10px;
     font-size: 14px;
     font-weight: 500;
   }
