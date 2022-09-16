@@ -1,3 +1,4 @@
+import { CadidateInfoModal } from '../CandidateInfoModal'
 import { Container } from './styles'
 
 export function SocialNotFound() {

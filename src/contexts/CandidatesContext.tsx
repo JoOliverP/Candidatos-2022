@@ -22,8 +22,41 @@ interface CandidatesData {
   SG_PARTIDO: string
 }
 
+interface CadidateBsProps {
+  VR_BEM_CANDIDATO?: string | number
+}
+
+interface ViceCadidate {
+  NM_URNA_CANDIDATO: string
+  IM_CANDIDATO: string
+}
+interface Cadidate {
+  NM_CANDIDATO: string
+  NM_URNA_CANDIDATO: string
+  IM_CANDIDATO: string
+  NR_CPF_CANDIDATO: string
+  NR_CANDIDATO: string
+  PT_CANDIDATO: string
+  NM_PARTIDO: string
+  SG_PARTIDO: string
+  DS_OCUPACAO: string
+  DS_COR_RACA: string
+  DS_ESTADO_CIVIL: string
+  DS_GRAU_INSTRUCAO: string
+  DS_GENERO: string
+  DT_NASCIMENTO: string
+  NM_MUNICIPIO_NASCIMENTO: string
+  SG_UF_NASCIMENTO: string
+  DS_NACIONALIDADE: string
+  NM_COLIGACAO: string
+  DS_COMPOSICAO_COLIGACAO: string
+  BS_CANDIDATO?: CadidateBsProps[] | null
+  VC_CANDIDATO: ViceCadidate[]
+}
+
 interface CandidatesContextType {
   candidates: CandidatesData[]
+  cadidate: Cadidate
   states: StatesType[]
   loading: boolean
   type: string
@@ -31,8 +64,11 @@ interface CandidatesContextType {
   setPage: React.Dispatch<React.SetStateAction<number>>
   page: number
   pageCount: number
+  isCandidateModalOpen: boolean
+  setIsCandidateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   handleFilterCandidateType: (type: string, state: string) => void
   handleLoadingMoreCandidates: (page: number) => void
+  handleOpenModalCadidate: (cadidate: CandidatesData) => void
 }
 
 export const CanditateContext = createContext({} as CandidatesContextType)
@@ -41,6 +77,9 @@ export function CandidatesContextProvider({
   children,
 }: CandidatesContextProviderProps) {
   const [candidates, setCandidates] = useState<CandidatesData[]>([])
+
+  const [cadidate, setCadidate] = useState<Cadidate[]>([])
+  const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const [states, setStates] = useState<StatesType[]>([])
@@ -69,7 +108,7 @@ export function CandidatesContextProvider({
 
     try {
       setVagas(0)
-      
+
       const response = await api.get(`${state}?cdc=${type}&page=${1}`)
 
       if (['6', '7', '8'].includes(type)) {
@@ -110,6 +149,11 @@ export function CandidatesContextProvider({
     setLoading(false)
   }
 
+  async function handleOpenModalCadidate(cadidate: any) {
+    setCadidate(cadidate)
+    setIsCandidateModalOpen(true)
+    console.log(cadidate.BS_CANDIDATO)
+  }
   useEffect(() => {
     setLoading(true)
     loadCandidates()
@@ -121,6 +165,7 @@ export function CandidatesContextProvider({
     <CanditateContext.Provider
       value={{
         candidates,
+        cadidate,
         loading,
         type,
         vagas,
@@ -128,8 +173,11 @@ export function CandidatesContextProvider({
         setPage,
         pageCount,
         states,
+        isCandidateModalOpen,
+        setIsCandidateModalOpen,
         handleFilterCandidateType,
         handleLoadingMoreCandidates,
+        handleOpenModalCadidate,
       }}
     >
       {children}

@@ -3,9 +3,19 @@ import Select from 'react-select'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
+import { CadidateInfoModal } from '../../components/CandidateInfoModal'
+interface CandidatesData {
+  NM_URNA_CANDIDATO: string
+  IM_CANDIDATO: string
+  NR_CPF_CANDIDATO: string
+  NR_CANDIDATO: string
+  PT_CANDIDATO: string
+  SG_PARTIDO: string
+}
 
 export function Home() {
-  const { states, vagas, handleFilterCandidateType } = useContext(CanditateContext)
+  const { states, vagas, handleFilterCandidateType } =
+    useContext(CanditateContext)
   const [typeCandidate, setTypeCandidate] = useState('0')
   const [typeCandidateSelected, setTypeCandidateSelected] = useState('0')
 
@@ -85,7 +95,10 @@ export function Home() {
         </button>
       </form>
 
-      <h1>Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]} ({vagas} {vagas == 1 ? "vaga" : "vagas"})</h1>
+      <h1>
+        Candidatos a {candidateTypes[typeCandidateSelected as ObjectKey]} (
+        {vagas} {vagas === 1 ? 'vaga' : 'vagas'})
+      </h1>
       <Candidates />
     </HomeContainer>
   )

@@ -32,14 +32,15 @@ export const NumberCandidate = styled.div`
   }
 `
 
-export const CandidateInfo = styled.div`
+export const CandidateInfo = styled.button`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme['yellow-500']};
-
+  cursor: pointer;
+  border: none;
   img {
     width: 200px;
     height: 250px;

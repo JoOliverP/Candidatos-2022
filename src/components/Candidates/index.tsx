@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import {
   CandidatesContainer,
   CardCandidate,
@@ -7,6 +7,7 @@ import {
   NumberCandidate,
   GovernmentPlan,
 } from './styles'
+import Modal from 'react-modal'
 
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { CanditateContext } from '../../contexts/CandidatesContext'
@@ -14,17 +15,11 @@ import { CanditateContext } from '../../contexts/CandidatesContext'
 import { PulseLoader } from 'react-spinners'
 import { Image } from '../Image'
 import { Pagination } from '../Pagination'
+import { CadidateInfoModal } from '../CandidateInfoModal'
 
 export function Candidates() {
-  const {
-    candidates,
-    type,
-    loading,
-    page,
-    setPage,
-    pageCount,
-    handleLoadingMoreCandidates,
-  } = useContext(CanditateContext)
+  const { candidates, type, loading, handleOpenModalCadidate } =
+    useContext(CanditateContext)
 
   return (
     <>
@@ -34,26 +29,31 @@ export function Candidates() {
         ) : !candidates.length ? (
           <h1>Dados não encontrados</h1>
         ) : (
-          candidates?.map((candidates) => {
+          candidates?.map((candidate) => {
             return (
-              <CardCandidate key={candidates?.NR_CPF_CANDIDATO}>
+              <CardCandidate key={candidate?.NR_CPF_CANDIDATO}>
                 <NumberCandidate>
-                  <h1>{candidates?.NR_CANDIDATO}</h1>
+                  <h1>{candidate?.NR_CANDIDATO}</h1>
                 </NumberCandidate>
 
-                <CandidateInfo>
-                  <Image src={candidates?.IM_CANDIDATO} />
+                <CandidateInfo
+                  onClick={() => handleOpenModalCadidate(candidate)}
+                >
+                  <Image
+                    src={candidate?.IM_CANDIDATO}
+                    alt="Foto do candidato"
+                  />
                   <h1>
-                    {candidates?.NM_URNA_CANDIDATO.split(' ')
+                    {candidate?.NM_URNA_CANDIDATO.split(' ')
                       .slice(0, 2)
                       .join(' ')}
                   </h1>
-                  <span>{candidates?.SG_PARTIDO}</span>
+                  <span>{candidate?.SG_PARTIDO}</span>
                 </CandidateInfo>
 
                 {['1', '3'].includes(type) ? (
                   <GovernmentPlan
-                    href={candidates.PT_CANDIDATO}
+                    href={candidate.PT_CANDIDATO}
                     target="__blank"
                   >
                     Plano de governo
@@ -66,7 +66,7 @@ export function Candidates() {
                   {/* <Link to="/social-not-found"></Link> */}
                   <a
                     href={
-                      candidates.RS_CANDIDATO?.facebook ?? '/social-not-found'
+                      candidate.RS_CANDIDATO?.facebook ?? '/social-not-found'
                     }
                     target={'_blank'}
                     rel="noreferrer"
@@ -75,7 +75,7 @@ export function Candidates() {
                   </a>
                   <a
                     href={
-                      candidates.RS_CANDIDATO?.instagram ?? '/social-not-found'
+                      candidate.RS_CANDIDATO?.instagram ?? '/social-not-found'
                     }
                     target={'_blank'}
                     rel="noreferrer"
@@ -84,7 +84,7 @@ export function Candidates() {
                   </a>
                   <a
                     href={
-                      candidates.RS_CANDIDATO?.twitter ?? '/social-not-found'
+                      candidate.RS_CANDIDATO?.twitter ?? '/social-not-found'
                     }
                     target={'_blank'}
                     rel="noreferrer"
@@ -103,6 +103,8 @@ export function Candidates() {
       ) : (
         <></>
       )}
+
+      <CadidateInfoModal />
     </>
   )
 }
