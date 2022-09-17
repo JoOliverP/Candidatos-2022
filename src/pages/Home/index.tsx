@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { CanditateContext } from '../../contexts/CandidatesContext'
 import { Candidates } from '../../components/Candidates'
 import { HomeContainer } from './styles'
-import { CadidateInfoModal } from '../../components/CandidateInfoModal'
+
 interface CandidatesData {
   NM_URNA_CANDIDATO: string
   IM_CANDIDATO: string

@@ -44,14 +44,6 @@ export const ContentInfo = styled.div`
     text-transform: capitalize;
   } */
 `
-export const ViceCandidate = styled.div`
-  padding: 0.5rem;
-  display: flex;
-  img {
-    width: 60px;
-    height: 100;
-  }
-`
 
 export const ButtonClose = styled.button`
   padding: 5px;

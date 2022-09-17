@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import {
   CandidatesContainer,
   CardCandidate,
@@ -7,7 +7,6 @@ import {
   NumberCandidate,
   GovernmentPlan,
 } from './styles'
-import Modal from 'react-modal'
 
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa'
 import { CanditateContext } from '../../contexts/CandidatesContext'

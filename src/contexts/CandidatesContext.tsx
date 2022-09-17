@@ -12,7 +12,16 @@ interface CandidatesSocialProps {
   youtube: string | null
   site: string | null
 }
+interface CadidateBsProps {
+  VR_BEM_CANDIDATO: string
+}
+
+interface ViceCadidate {
+  NM_URNA_CANDIDATO: string
+  IM_CANDIDATO: string
+}
 interface CandidatesData {
+  NM_CANDIDATO: string
   NM_URNA_CANDIDATO: string
   IM_CANDIDATO: string
   NR_CPF_CANDIDATO: string
@@ -20,25 +29,7 @@ interface CandidatesData {
   NR_CANDIDATO: string
   PT_CANDIDATO: string
   SG_PARTIDO: string
-}
 
-interface CadidateBsProps {
-  VR_BEM_CANDIDATO?: string | number
-}
-
-interface ViceCadidate {
-  NM_URNA_CANDIDATO: string
-  IM_CANDIDATO: string
-}
-interface Cadidate {
-  NM_CANDIDATO: string
-  NM_URNA_CANDIDATO: string
-  IM_CANDIDATO: string
-  NR_CPF_CANDIDATO: string
-  NR_CANDIDATO: string
-  PT_CANDIDATO: string
-  NM_PARTIDO: string
-  SG_PARTIDO: string
   DS_OCUPACAO: string
   DS_COR_RACA: string
   DS_ESTADO_CIVIL: string
@@ -50,13 +41,13 @@ interface Cadidate {
   DS_NACIONALIDADE: string
   NM_COLIGACAO: string
   DS_COMPOSICAO_COLIGACAO: string
-  BS_CANDIDATO?: CadidateBsProps[] | null
-  VC_CANDIDATO: ViceCadidate[]
+  BS_CANDIDATO?: CadidateBsProps[]
+  VC_CANDIDATO: ViceCadidate
 }
 
 interface CandidatesContextType {
   candidates: CandidatesData[]
-  cadidate: Cadidate
+  cadidate: CandidatesData | undefined
   states: StatesType[]
   loading: boolean
   type: string
@@ -78,7 +69,7 @@ export function CandidatesContextProvider({
 }: CandidatesContextProviderProps) {
   const [candidates, setCandidates] = useState<CandidatesData[]>([])
 
-  const [cadidate, setCadidate] = useState<Cadidate[]>([])
+  const [cadidate, setCadidate] = useState<CandidatesData>()
   const [isCandidateModalOpen, setIsCandidateModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -149,10 +140,9 @@ export function CandidatesContextProvider({
     setLoading(false)
   }
 
-  async function handleOpenModalCadidate(cadidate: any) {
+  async function handleOpenModalCadidate(cadidate: CandidatesData) {
     setCadidate(cadidate)
     setIsCandidateModalOpen(true)
-    console.log(cadidate.BS_CANDIDATO)
   }
   useEffect(() => {
     setLoading(true)

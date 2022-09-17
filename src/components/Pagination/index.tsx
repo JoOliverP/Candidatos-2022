@@ -4,7 +4,7 @@ import { CanditateContext } from '../../contexts/CandidatesContext'
 import { PaginateContainer } from './styles'
 
 export function Pagination() {
-  const { type, page, setPage, pageCount, handleLoadingMoreCandidates } =
+  const { page, setPage, pageCount, handleLoadingMoreCandidates } =
     useContext(CanditateContext)
   return (
     <>
