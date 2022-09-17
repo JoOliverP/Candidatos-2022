@@ -27,7 +27,7 @@ Além disto é bom ter um editor para trabalhar com o código como o  [VSCode](h
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/JoOliverP/Candidatos-2022>
+$ git clone https://github.com/JoOliverP/Candidatos-2022
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd Candidatos-2022
