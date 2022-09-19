@@ -127,23 +127,33 @@ export function CadidateInfoModal() {
                 </span>
                 <p>{cadidate?.DS_COMPOSICAO_COLIGACAO}</p>
               </ContentInfo>
-              <ContentInfo>
-                <span>
-                  <FaDollarSign /> Patrimônio
-                </span>
-                <p>{formatter.format(Number(total))}</p>
-              </ContentInfo>
+              {cadidate?.BS_CANDIDATO ? (
+                <ContentInfo>
+                  <span>
+                    <FaDollarSign /> Patrimônio
+                  </span>
+                  <p>{formatter.format(Number(total))}</p>
+                </ContentInfo>
+              ) : (
+                <></>
+              )}
 
-              <ContentInfo>
-                <span>
-                  <FaUserAlt /> Vice/Suplente
-                </span>
-                <p>{cadidate?.VC_CANDIDATO?.NM_URNA_CANDIDATO}</p>
-              </ContentInfo>
-              <img
-                src={cadidate?.VC_CANDIDATO?.IM_CANDIDATO}
-                alt={`Imagem do vice Canditato : ${cadidate?.NM_CANDIDATO} `}
-              />
+              {cadidate?.VC_CANDIDATO ? (
+                <>
+                  <ContentInfo>
+                    <span>
+                      <FaUserAlt /> Vice/Suplente
+                    </span>
+                    <p>{cadidate?.VC_CANDIDATO?.NM_URNA_CANDIDATO}</p>
+                  </ContentInfo>
+                  <img
+                    src={cadidate?.VC_CANDIDATO?.IM_CANDIDATO}
+                    alt={`Imagem do vice Canditato : ${cadidate?.NM_CANDIDATO} `}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
             </Content>
           </ContentContainer>
         </Container>
